@@ -1,20 +1,21 @@
-# Use the official Node.js runtime as a parent image
+# Use official Node.js image
 FROM node:18
 
-# Set the working directory inside the container
+# Set working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and package-lock.json from cloud folder
+COPY cloud/package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the app’s source code
-COPY . .
+# Copy all app files from cloud folder
+COPY cloud/ ./
 
-# Expose the port your app runs on
+# Expose port 3000 (or your app’s port)
 EXPOSE 3000
 
-# Run the app
-CMD ["node", "main.js"]
+# Start the app
+CMD ["npm", "start"]
+
